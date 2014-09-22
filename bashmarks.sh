@@ -43,12 +43,18 @@ GREEN="0;33m"
 
 # save current directory to bookmarks
 function s {
-    check_help $1
-    _bookmark_name_valid "$@"
+    local dir="$1"
+    if [ -z "$dir" ]; then
+        # bookmark name from current directory's basename
+        dir="$(basename "$PWD")"
+    else 
+        check_help $1
+    fi
+    _bookmark_name_valid "$dir"
     if [ -z "$exit_message" ]; then
-        _purge_line "$SDIRS" "export DIR_$1="
+        _purge_line "$SDIRS" "export DIR_$dir="
         CURDIR=$(echo $PWD| sed "s#^$HOME#\$HOME#g")
-        echo "export DIR_$1=\"$CURDIR\"" >> $SDIRS
+        echo "export DIR_$dir=\"$CURDIR\"" >> $SDIRS
     fi
 }
 
