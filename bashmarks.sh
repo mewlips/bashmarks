@@ -47,7 +47,7 @@ function s {
     if [ -z "$dir" ]; then
         # bookmark name from current directory's basename
         dir="$(basename "$PWD")"
-    else 
+    else
         check_help $1
     fi
     _bookmark_name_valid "$dir"
@@ -106,10 +106,10 @@ function check_help {
 function l {
     check_help $1
     source $SDIRS
-        
+
     # if color output is not working for you, comment out the line below '\033[1;32m' == "red"
     env | sort | awk '/^DIR_.+/{split(substr($0,5),parts,"="); printf("\033[0;33m%-20s\033[0m %s\n", parts[1], parts[2]);}'
-    
+
     # uncomment this line if color output is not working with the line above
     # env | grep "^DIR_" | cut -c5- | sort |grep "^.*=" 
 }
